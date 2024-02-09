@@ -3,10 +3,14 @@
 Para la realizacion de la intgeracion se utilizo la libreria PyModbus en entorno controlado, adicionalmente se realiza un compendio de los registros presentes para este dispositivo en ModbusRTU, a continuacion se desglosa el paso a paso realizado.
 
 #### Indice
-> Registros ModbusRTU HIKING-DDS238-2
+> I. Registros ModbusRTU HIKING-DDS238-2
 
-> Test con PyModbus
+> II. Test con PyModbus
 
 ----
-##### Registos ModbusRTU HIKING-DDS238-2
+##### I. Registos ModbusRTU HIKING-DDS238-2
 
+![](https://raw.githubusercontent.com/23ft/HIKING-DDS238-2/main/hiking_register_map_rtu.PNG?token=GHSAT0AAAAAACOAP7J6QKGAPCHC2QMAJFGUZOGKBXQ)
+
+----
+##### II. Test con PyModbus
