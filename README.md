@@ -12,5 +12,7 @@ Para la realizacion de la intgeracion se utilizo la libreria PyModbus en entorno
 
 ![](https://raw.githubusercontent.com/23ft/HIKING-DDS238-2/main/hiking_register_map_rtu.PNG?token=GHSAT0AAAAAACOAP7J6QKGAPCHC2QMAJFGUZOGKBXQ)
 
+Nota importante a la hora de escribir registros: The meter does not understand the 'write sigle register' function code (06h), only the 'write multiple registers' function code (10h).
+
 ----
 ##### II. Test con PyModbus
