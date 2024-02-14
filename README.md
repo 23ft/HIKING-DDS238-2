@@ -16,3 +16,8 @@ Nota importante a la hora de escribir registros: The meter does not understand t
 
 ----
 ##### II. Test con PyModbus
+
+Se realiza integracion con la libreria PYMODBUS La cual presento comportamientos extraños en la lectura del registro 000Fh ya que al tender al valores negativos este registro retorna lo que parece ser un registro complemento a dos.
+
+Validacion por registros de funcionamiento RELE y extraccion de informacion como lo es Export Energy, Voltaje, Active power, Power Factor etc.
+
