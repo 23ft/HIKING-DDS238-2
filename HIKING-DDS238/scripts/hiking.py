@@ -8,6 +8,14 @@ from pymodbus.payload import BinaryPayloadBuilder
 from pymodbus.constants import Endian
 import logging
 from bitstring import Bits
+from dlms_cosem import cosem
+import time
+
+"""
+communication = https://github.com/arendst/Tasmota/issues/18724
+
+"""
+
 
 hiking_total_energyH = 0x0000
 hiking_total_energyL = 0x0001
@@ -30,7 +38,7 @@ map_hiking = {"hiking-pf": 0x0010,
 
 class HikinTest():
     def __init__(self):
-        self.ser = serial.Serial()
+        self.ser = serial.Serial(baudrate=9600, parity=serial.PARITY_EVEN, stopbits=serial.STOPBITS_ONE, bytesize=serial.SEVENBITS, timeout=1.5)
         self.chanel = None
         self.client = None
         
@@ -43,10 +51,51 @@ class HikinTest():
         print("pepe")
     
     # write serial.
-    def _writeSerial(self):
+    def _writeSerial(self, command):
         self.ser.port = self.serial_ports()[0]
         self.ser.open()
-        self.ser.write(b"pepe")
+
+        #serialx = "/?!\r\n"
+        #erialx1 = "/75443141\r\n"
+        id = b'/ISk5MT174-0001\r\n' 
+        trama_init = "/?!\r\n"
+        trama_mid = "/75443141\r\n1-0:0.9.1\r\n"
+        #trama2 = "\x06\x30\x35\x31\x0D\xDA"
+        #prueba = cosem.Obis(1, 0, 1, 8, 0, 255).to_bytes()
+        #print(prueba)
+        #self.ser.write(trama_init.encode())
+        #time.sleep(0.5)
+        #self.ser.write(trama_mid.encode())
+        pe = b'0-0:C.1.0*255'
+        temp = '\x2F\x3F\x21\x0D\x0A'
+        cam = '\x5C\x78\x30\x31\x42\x30\x5C\x78\x30\x33\x71'
+        #temp2 = '\x2F\'
+        temp3 = b'1-0:0.9.2/?!\r\n'
+        
+        #time.sleep(0.5)
+        self.ser.write(temp.encode())
+        self.ser.write(cam.encode())
+        #self.ser.write(command.encode())
+        print("[debug] comando escrito")
+        
+        while True:
+            response = self.ser.readline()
+            print(response)
+            if response == b'':
+                break
+        
+        #self.ser.write(cam.encode())
+        #while True:
+        #    response = self.ser.readline()
+        #    print(response)
+        #    if response == b'':
+        #        break
+
+        self.ser.close()            
+        #response = self.ser.readline()
+        #print(response)
+        #if response == b"":
+            #exit()
         
         
         data = b"0103000C000085C9"    
@@ -133,7 +182,9 @@ if __name__ == '__main__':
     try:
         app = HikinTest()
         app.selectPort() # select port
-        app.testRTU() # test RTU
+        app._writeSerial('1-0:0.9.1\r\n')
+        #app.testRTU() # test RTU
         #app.switchRelay() # test relay.
     finally:
-        app.client.close()
+        pass
+        #app.client.close()
